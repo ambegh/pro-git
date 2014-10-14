@@ -27,8 +27,9 @@ public class trial {
 				throws IOException {
 			
 			String inputLine = value.toString();
-            String pattern = "(,\"[^\"]+),(.+\")";
-   			String preprocessed = inputLine.replaceAll(pattern , "$1~$2");	   
+            String pattern = "(,\"[^\"]+),(.+\")"; // some of the field values have a , in side "" which disturbs the splitting 
+            
+   			String preprocessed = inputLine.replaceAll(pattern , "$1~$2");	   // replace , with ~ if it found in side double quotes
     	    
     	    String[] tokens = preprocessed.split(",");	              
             String airline_month = tokens[2] + "_" + tokens[6] ;
