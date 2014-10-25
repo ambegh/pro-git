@@ -19,7 +19,7 @@ public class AgeEffect {
 	    Path[] cachefiles = new Path[0]; //To store the path of lookup files
         Map planedata = new HashMap();
 	    
-	    public boolean checkEmpty( String ... values){
+	    public boolean notEmpty( String ... values){
 	        for (String st : values){
 	             if (st.isEmpty())
 	                return false;       
@@ -60,7 +60,7 @@ public class AgeEffect {
     	    
     	    String[] tokens = preprocessed.split(",");	              
            
-          	if (checkEmpty(tokens[0], tokens[28],tokens[9]) && !tokens[0].startsWith("\"Year\"")){
+          	if (notEmpty(tokens[0], tokens[28],tokens[9]) && !tokens[0].startsWith("\"Year\"")){
                
                 String delayIndicator = tokens[28] ;  // delay indicator
                 String manufacturedYear = (String)planedata.get(tokens[9]); 
@@ -117,13 +117,13 @@ public class AgeEffect {
 	public static void main(String[] args) throws IOException {
 		
 		Configuration conf = new Configuration();
-         job.setJarByClass(AgeEffect.class);
-         Job job = Job.getInstance(conf, "age effect");
-    	 job.setMapperClass(Map.class);
+        	 job.setJarByClass(AgeEffect.class);
+         	Job job = Job.getInstance(conf, "age effect");
+    	 	job.setMapperClass(Map.class);
    		 job.setCombinerClass(Combine.class);
-  	     job.setReducerClass(Reduce.class);
-  	     job.setOutputKeyClass(Text.class);
-  	     job.setOutputValueClass(DoubleWritable.class);
+ 		  job.setReducerClass(Reduce.class);
+    	     job.setOutputKeyClass(Text.class);
+   	     job.setOutputValueClass(DoubleWritable.class);
   	     DistributedCache.addCacheFile(new Path(args[0]).toUri(), job.getConfiguration());
 	     job.setMapOutputKeyClass(Text.class);
 		 job.setMapOutputValueClass(Text.class);
